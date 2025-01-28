@@ -1,0 +1,56 @@
+<html>
+<head>
+<title>
+Lab 1: Due Jan 28th, Support for ALU instructions
+</title>
+<body>
+
+<h3>Overview</h3>
+<p>In this lab you are to start building a multicycle RISC-V rv32i core.  The focus is on correctly
+implementing ALU instructions (ADD, ADDI, SUB, SLL, SLLI, SRA, etc).  In this lab you do not have
+to support branch and memory (load/store) instructions.  Your processor will be "multicycle", meaning
+it will take multiple cycles to execute a single instruction.  These cycles are "fetch", "decode",
+"execute", "memory" and "writeback".  See lab2.sv for more details.
+</p>
+<p>
+A significant amount of infrastructure is provided in this lab that is not needed until lab3 and 4.
+This is because it is best if you become familiar with the mechanics of getting assembly into your
+processor and rather than learn something not useful it's easier (I believe) to just use the real
+stuff to begin with.  To that end you are going to see instructions in the binary that will not
+execute in lab 2.  That is OK.  What you need to do is edit "start.s" to add instructions to test
+your work.
+</p>
+<p>
+Finally note that memory modules are provided to you.  We will discuss memory in class and while
+it is important that you learn how to code memories correctly in Verilog it's easier for now if
+we just provide them to you.  In the next lab you will be using the data memory and there is
+significant subtle behavior to understand there.
+</p>
+<p>
+So how to get started?  My recommendation is you start by only doing the 3 register format instructions
+(e.g. ADD, SUB, etc).  These are the R-format instructions.  You will need to write the code for
+a register file.  Hopefully much of your lab1 decoding support can be re-used to decode these instructions
+for you.  During the decode stage I recommend invoking your lab1 solution so you can see how the
+processor progresses.  After you finish the R-format instructions I would move to the instructions
+that take constants.  Remember that you need to check your work by editing start.s and inserting
+instructions that you want to execute, and then invoking the build process again to have them
+be compiled.
+
+<h3>Structure</h3>
+You are <i>strongly</i> encouraged to create verilog types for various fields (e.g. "regname", "funct7", etc).
+You are also <i>strongly</i> encouraged to create functions to parse each of these pieces.  You
+can see that I (routinely) violate the Verilog coding guide of only 1 always_comb and one clocked 
+always block in a module.  This works because I only <i>write to a logic element</i> in single
+always block.  I am also careful about cross-always block dependencies if they exist in always_comb
+blocks.  You can follow this same structure if you like, or you can create modules for each stage of the
+processor -- your choice.  Personally I find the module approach just as error prone as the all in one
+module approach and more difficult to edit/debug.  But you do you...
+
+<p>Other notes</p>
+<ul>
+<li>memory_io.sv contains the structures for communicating with memory.  Within them is a field
+"user_tag".  You can ignore this.  It's part of my own work.  The other fields in the structures
+are fairly self explanatory.  See memory.sv for further usage details.
+</ul>
+</body>
+</head>

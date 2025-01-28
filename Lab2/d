@@ -1,0 +1,14 @@
+cd libmc; make clean; make; cd ..
+make[1]: Entering directory '/root/EE469/Lab2/libmc'
+rm -f *.o libmc.a
+make[1]: Leaving directory '/root/EE469/Lab2/libmc'
+make[1]: Entering directory '/root/EE469/Lab2/libmc'
+/root/EE469/xpacks/.bin/riscv-none-elf-as -march=rv32i -c mmio.s -o mmio.o
+/root/EE469/xpacks/.bin/riscv-none-elf-gcc -O1 -march=rv32i -Wno-builtin-declaration-mismatch -Ilibmc -c *.c
+/root/EE469/xpacks/.bin/riscv-none-elf-gcc -O1 -march=rv32i -Wno-builtin-declaration-mismatch -Ilibmc -c *.c
+/root/EE469/xpacks/.bin/riscv-none-elf-ar  q libmc.a *.o
+make[1]: Leaving directory '/root/EE469/Lab2/libmc'
+/root/EE469/xpacks/.bin/riscv-none-elf-ld --script ld.script -o test start.o test.o -Llibmc -lmc  -Llibmc -lmc -L/root/EE469/xpacks/.lib -lgcc
+/bin/bash ./elftohex.sh test .
+/usr/local/bin/iverilog -g2012 -o result-iverilog itop.sv
+./result-iverilog

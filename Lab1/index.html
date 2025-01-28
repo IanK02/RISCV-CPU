@@ -1,0 +1,74 @@
+<html>
+<head>
+<title>
+Lab 1: Due Jan 19th, debugging infrastructure for RISC-V rv32i
+</title>
+<body>
+
+<h3>Overview</h3>
+In this lab you are to build infrastructure to help you decode and debug a RISC-V rv32i processor that you are
+building in this class.  The point of this lab is just to print, in human readable form, instructions.  For example,
+
+<pre>
+   10078: ff010113              addi    sp,sp,-16
+   1007c: 00112623              sw      ra,12(sp)
+   10080: 00812423              sw      s0,8(sp)
+   10084: 01010413              addi    s0,sp,16
+   10088: 000207b7              lui     a5,0x20
+   1008c: 00078513              mv      a0,a5
+   10090: 360000ef              jal     ra,103f0 
+   10094: 00000793              li      a5,0
+   10098: 00078513              mv      a0,a5
+   1009c: 00c12083              lw      ra,12(sp)
+   100a0: 00812403              lw      s0,8(sp)
+   100a4: 01010113              addi    sp,sp,16
+   100a8: 00008067              ret
+</pre>
+
+This printout represents the PC (e.g. 0x10078), the instruction bytes (e.g. 0xff010113) and what this means
+in human readable form (e.g. "addi sp,sp,-16").  Ultimately what you are building is a verilog function:
+
+<pre>
+function void print_instruction(logic [31:0] pc, logic [31:0] instruction);
+	$write("%x: ", pc);
+	$write("%x   ", instruction);
+	// More here that you do
+
+	$write("\n");
+endfunction
+</pre>
+
+To test your function a top.sv and a hex file of instruction is included, along with a Makefile to compile
+things with verilator and with iverilog (by default).  Your code must work for verilator and to ensure it does so type:
+
+<pre>
+make clean
+make result-verilator
+</pre>
+
+However, verilator can be slow in the VM so developing with iverilog is often preferred (and hence, why it is the default).  To do so just type:
+
+<pre>
+make clean
+make result-iverilog
+</pre>
+
+Note that ensuring your verilog code works correctly in both verilator and iverilog is the best way to work.
+
+You are encouraged to build your own hex files and test your decoder extensively.  You can decode instructions by
+using objdump to verify your results.  For example:
+
+<pre>
+source /app/rv32sim/site-config.sh
+$(RISCV_PREFIX)-objdump -d elfbinary
+</pre>
+
+In this case the "source" command is only needed once per login, as all that it does it set some environment variables.
+The "elfbinary" should be replaced with a RISC-V rv32 binary.  Any of the homeworks on writing assembly have suitable 
+Makefiles that show you how to generate one.  You can also just use a homework.
+
+<h3>Structure</h3>
+You are <i>strongly</i> encouraged to create verilog types for various fields (e.g. "regname", "funct7", etc).
+You are also <i>strongly</i> encouraged to create functions to parse each of these pieces.
+</body>
+</head>
