@@ -1,2 +1,2 @@
 ## WIP
-This is my work to create a 32 bit RISCV CPU in my EE469 class at UW. Within the Lab1 and Lab2 directories the files that I have written are always called Lab1.sv and Lab2.sv. All other files were written by the EE469 teaching team for Winter Quarter 2025.
+This is my a pipelined, 5 cycle, 32 bit RISCV CPU. The Lab5 directory contains the latest version of my work. Within the Lab5 directories the files lab1.sv and lab5.sv are my own work, all other contents are supporting files used to test the CPU. These supporting files were not written by me and were written by [Professor Mark Oskin](https://homes.cs.washington.edu/~oskin/) and the Winter 2025 EE469 teaching team at UW.
