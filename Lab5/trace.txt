@@ -1,0 +1,1 @@
+/root/EE469/xpacks/.bin/riscv-none-elf-as -march=rv32i  -c start.s -o start.o

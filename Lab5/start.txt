@@ -1,0 +1,23 @@
+
+start.o:     file format elf32-littleriscv
+
+
+Disassembly of section .text:
+
+00000000 <_start>:
+   0:	01000717          	auipc	a4,0x1000
+   4:	e4c70713          	addi	a4,a4,-436 # fffe4c <halt+0xfffe20>
+   8:	00e787b3          	add	a5,a5,a4
+   c:	00e787b3          	add	a5,a5,a4
+  10:	00030137          	lui	sp,0x30
+  14:	ff010113          	addi	sp,sp,-16 # 2fff0 <halt+0x2ffc4>
+  18:	00000097          	auipc	ra,0x0
+  1c:	000080e7          	jalr	ra # 18 <_start+0x18>
+  20:	00000097          	auipc	ra,0x0
+  24:	000080e7          	jalr	ra # 20 <_start+0x20>
+  28:	fd9ff06f          	j	0 <_start>
+
+0000002c <halt>:
+  2c:	00030537          	lui	a0,0x30
+  30:	ffc50513          	addi	a0,a0,-4 # 2fffc <halt+0x2ffd0>
+  34:	00052023          	sw	zero,0(a0)
